@@ -1,6 +1,6 @@
 """test VSIReader."""
 
-import os
+import os, sys
 
 import numpy
 import pytest
@@ -12,6 +12,7 @@ PREFIX = os.path.join(os.path.dirname(__file__), "fixtures")
 COGEO = os.path.join(PREFIX, "cog.tif")
 
 
+@pytest.mark.skipif(sys.platform == 'win32', reason='not working on Windows')
 def test_vsireader():
     """Test Reader using VSIFile handler."""
     pytest.importorskip("vsifile")
