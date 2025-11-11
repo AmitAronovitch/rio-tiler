@@ -691,11 +691,11 @@ def test_relative_assets():
     """Should return absolute href for assets"""
     with STACReader(STAC_REL_PATH) as stac:
         for _key, asset in stac.item.assets.items():
-            assert asset.get_absolute_href().startswith(PREFIX)
+            assert os.path.normpath(asset.get_absolute_href()).startswith(PREFIX)
         assert len(stac.assets) == 5
 
         for asset in stac.assets:
-            assert stac._get_asset_info(asset)["url"].startswith(PREFIX)
+            assert os.path.normpath(stac._get_asset_info(asset)["url"]).startswith(PREFIX)
 
 
 @patch("rio_tiler.io.stac.aws_get_object")
