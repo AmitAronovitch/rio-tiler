@@ -28,6 +28,7 @@ from rio_tiler.models import BandStatistics, ImageData, Info, PointData
 from rio_tiler.tasks import multi_arrays, multi_points, multi_values
 from rio_tiler.types import AssetInfo, BBox, Indexes
 from rio_tiler.utils import CRS_to_uri, cast_to_sequence, normalize_bounds
+from rio_tiler.reader_utils import Extents, GeoGrid
 
 
 @attr.s

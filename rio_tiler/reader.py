@@ -29,6 +29,7 @@ from rio_tiler.utils import (
     has_alpha_band,
     non_alpha_indexes,
 )
+from rio_tiler import reader_utils
 
 
 class Options(TypedDict, total=False):
@@ -444,6 +445,24 @@ def part(
         }
         if vrt_options:
             vrt_params.update(**vrt_options)
+
+        # first implementation attempt (no support for padding yet)
+        # if False:
+        if (window is None and reader_utils.non_empty_ratio(src_dst, vrt_params) < 0.4):
+            return reader_utils.clipped_read(
+                src_dst,
+                indexes=indexes,
+                width=width,
+                height=height,
+                nodata=nodata,
+                vrt_options=vrt_params,
+                out_dtype=out_dtype,
+                resampling_method=resampling_method,
+                reproject_method=reproject_method,
+                force_binary_mask=force_binary_mask,
+                unscale=unscale,
+                post_process=post_process,
+            )
 
         return read(
             src_dst,
