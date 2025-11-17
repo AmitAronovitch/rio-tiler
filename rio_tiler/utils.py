@@ -61,7 +61,7 @@ def _get_width_height(max_size, dataset_height, dataset_width) -> Tuple[int, int
 
 def _missing_size(w: Optional[int] = None, h: Optional[int] = None):
     """Check if one and only one size (width, height) is valid."""
-    iterator = iter([w, h])
+    iterator = iter(x is not None for x in [w, h])
     return any(iterator) and not any(iterator)
 
 
